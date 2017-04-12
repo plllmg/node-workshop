@@ -35,4 +35,4 @@ exports.getIssPosition = getIssPosition;
 exports.getAddressPosition = getAddressPosition;
 exports.getCurrentTemperatureAtPosition = getCurrentTemperatureAtPosition;
 exports.getCurrentTemperature = getCurrentTemperature;
-exports.getDistanceFromIss = getDistanceFromIss;
+exports.getDistanceFromIss = getDistanceFromIss; 
