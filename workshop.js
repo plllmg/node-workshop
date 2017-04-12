@@ -49,9 +49,10 @@ function getCurrentTemperature(address) {
 
 function getDistanceFromIss(address) {
     
-    return Promise.all(getIssPosition(), getAddressPosition(address)).then(values => {
-        getDistance(values[0], values[1]);
-    }); // I have a feeling this won't work either.
+    return Promise.all([getIssPosition(), getAddressPosition(address)])
+    .then(values => {
+        return getDistance(values[0], values[1]);
+    });
     
 }
 
