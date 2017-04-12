@@ -12,8 +12,8 @@ function getIssPosition() {
                 // Parse as JSON
                 // Return object with lat and lng
                 var data = JSON.parse(response);
-                data.iss_position.longitude = data.iss_position.lng;
-                data.iss_position.latitude = data.iss_position.lat;
+                data.iss_position.lng = data.iss_position.longitude;
+                data.iss_position.lat = data.iss_position.latitude;
                 return data.iss_position
             }
         )
@@ -43,14 +43,16 @@ function getCurrentTemperatureAtPosition(position) {
 
 function getCurrentTemperature(address) {
     
-    return getCurrentTemperatureAtPosition(getAddressPosition(address)); //I have a feeling this won't work.
+    return getCurrentTemperatureAtPosition(getAddressPosition(address));
     
 }
 
 function getDistanceFromIss(address) {
     
-    return getDistance(getIssPosition(), getAddressPosition(address)); // I have a feeling this won't work either.
-
+    return Promise.all(getIssPosition(), getAddressPosition(address)).then(values => {
+        getDistance(values[0], values[1]);
+    }); // I have a feeling this won't work either.
+    
 }
 
 exports.getIssPosition = getIssPosition;
