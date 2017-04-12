@@ -21,20 +21,35 @@ function getIssPosition() {
 
 function getAddressPosition(address) {
     
-    
+    return request('https://maps.googleapis.com/maps/api/geocode/json?address=' + address)
+    .then(function(response) {
+        var data = JSON.parse(response);
+        
+        return data.results[0].geometry.location;
+    });
+
 
 }
 
 function getCurrentTemperatureAtPosition(position) {
+    return request('https://api.darksky.net/forecast/714e9bce6372ce0d5b09495430edae6f/'+position.lat+','+position.lng)
+    .then(function(response) {
+        var data = JSON.parse(response);
+        
+        return data.currently.temperature;
+    });
 
 }
 
 function getCurrentTemperature(address) {
-
+    
+    return getCurrentTemperatureAtPosition(getAddressPosition(address)); //I have a feeling this won't work.
+    
 }
 
 function getDistanceFromIss(address) {
     
+    return getDistance(getIssPosition(), getAddressPosition(address)); // I have a feeling this won't work either.
 
 }
 
